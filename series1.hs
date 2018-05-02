@@ -19,13 +19,13 @@ prop_plus x y = x + y == y + x
 prop_min :: Int -> Int -> Bool
 prop_min x y = x - y == y - x
 
-code :: Char -> Char
-code c | c `myelem` ['a' .. 'z'] = chr ((ord c + 10) `mod` 26 + 97)
-       | ord c >= 65 && ord c <= 90 = chr ((ord c + 16) `mod` 26 + 65)
-       | otherwise = c
+-- code :: Char -> Char
+-- code c | c `myelem` ['a' .. 'z'] = chr ((ord c + 10) `mod` 26 + 97)
+--        | ord c >= 65 && ord c <= 90 = chr ((ord c + 16) `mod` 26 + 65)
+--        | otherwise = c
 
-test1 = map code "hello"
-test2 = map code "Tomorrow evening, 8 o'clock in Amsterdam"
+-- test1 = map code "hello"
+-- test2 = map code "Tomorrow evening, 8 o'clock in Amsterdam"
 
 
 interest a r 0 = a
@@ -123,8 +123,8 @@ mytranspose [] = []
 mytranspose [x] = transposeRow x
 mytranspose (x:xs) = zipWith (++) (transposeRow x) (mytranspose xs)
 
-mytranspose' :: [[a]] -> [[a]]
-mytranspose' xs = map $ head xs ++ transpose $ map $ tail xs 
+-- mytranspose' :: [[a]] -> [[a]]
+-- mytranspose' xs = map $ head xs ++ mytranspose' $ map $ tail xs 
 
 transposeRow :: [a] -> [[a]]
 transposeRow [] = []

@@ -72,8 +72,11 @@ isPrime' n = length (dividers n) == 2
 
 pyth n = [(a,b,c) | a <-[2..n], b<-[2..n], c<-[2..n], a**2 + b**2 == c**2]
 
---How to use GCD here?
---pyth' n = [(a,b,c) | a <-[2..n], b<-[2..a], c<-[2..n], a**2 + b**2 == c**2, gcd a b == 1]
+-- --How to use GCD here?
+-- pyth' n = [(a,b,c) | a <-[2..n], b<-[2..a], c<-[2..n], a**2 + b**2 == c**2, gcd a b == 1]
+
+pyth':: Int -> [(Int,Int,Int)]
+pyth' x = [(a,b,c)|a<-[1..x], b<-[1..x], c<-[1..x], (a^2)+(b^2) == (c^2), gcd a b == 1, b>a]
 
 increasing:: [Int] -> Bool
 increasing [] = True
@@ -81,14 +84,14 @@ increasing [x] = True
 increasing (x:x':xs) | x < x' = increasing (x':xs)
                      | otherwise = False
 
---Cannot get types working
--- average:: [Double] -> Double
--- average xs = ((sum xs) / ((length xs)::Double))
+-- Average function taken from https://stackoverflow.com/questions/2376981/haskell-types-frustrating-a-simple-average-function
+average:: (Real a, Fractional b) => [a] -> b
+average xs = realToFrac (sum xs) / genericLength xs
 
--- weaklyIncreasing:: [Double] -> Bool
--- weaklyIncreasing [] = True
--- weaklyIncreasing [x] = True
--- weaklyIncreasing xs = (average (init xs) < last xs) && (weaklyIncreasing $ init xs)
+weaklyIncreasing:: [Double] -> Bool
+weaklyIncreasing [] = True
+weaklyIncreasing [x] = True
+weaklyIncreasing xs = (average (init xs) < last xs) && (weaklyIncreasing $ init xs)
 
 sublist:: (Eq a) => [a] -> [a] -> Bool
 sublist xs [] = False
