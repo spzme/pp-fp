@@ -23,6 +23,9 @@ myZipWith f _ [] = []
 myZipWith f [] _ = []
 myZipWith f (x:xs) (y:ys) = [f x y] ++ myZipWith f xs ys
 
+type Person = (String, Int, String, String)
+
+database:: [Person]
 database = [("Barry Pooter", 21, "Male", "Zweinstein"),
             ("Hermelientje", 19, "Female", "Hagrid's Hut"),
             ("Herta", 33, "Female", "Utopia")]
@@ -62,18 +65,15 @@ sieve (x:xs) = x : [n | n <- sieve xs, n `mod` x /= 0]
 
 isPrime n = null [x | x <- [2..n - 1], n `mod` x == 0]
 
-firstPrimes n = take n [x | x <- [3..], isPrime x]
+firstPrimes n = take n [x | x <- [2..], isPrime x]
 
-primesSmallerThan n = [x | x <- [3..n], isPrime x]
+primesSmallerThan n = [x | x <- [2..n], isPrime x]
 
-dividers n = [x | x <- [2..n - 1], n `mod` x == 0]
+dividers n = [x | x <- [1..n], n `mod` x == 0]
 
 isPrime' n = length (dividers n) == 2
 
 pyth n = [(a,b,c) | a <-[2..n], b<-[2..n], c<-[2..n], a**2 + b**2 == c**2]
-
--- --How to use GCD here?
--- pyth' n = [(a,b,c) | a <-[2..n], b<-[2..a], c<-[2..n], a**2 + b**2 == c**2, gcd a b == 1]
 
 pyth':: Int -> [(Int,Int,Int)]
 pyth' x = [(a,b,c)|a<-[1..x], b<-[1..x], c<-[1..x], (a^2)+(b^2) == (c^2), gcd a b == 1, b>a]
